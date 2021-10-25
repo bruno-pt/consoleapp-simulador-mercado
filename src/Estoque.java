@@ -15,7 +15,7 @@ public class Estoque {
 
     public void visitar() {
         System.out.println();
-        System.out.println("Consutando Estoque");
+        System.out.println("--Consutando Estoque--");
         Iterator var2 = this.estoque.iterator();
 
         while(var2.hasNext()) {

@@ -14,6 +14,13 @@ public class Principal {
 
         Gerente gerente = new Gerente("Amariudo", 45);
 
+        Produto p1 = new Produto("Arrroz",20, 21f);
+        Produto p2 = new Produto("Feijão",2, 5.40f);
+        Produto p3 = new Produto("Farinha",3, 5.60f);
+
+        Estoque estoque = new Estoque();
+        estoque.visitar();
+
 
 
     }

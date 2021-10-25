@@ -14,6 +14,17 @@ public class Principal {
 
         Gerente gerente = new Gerente("Amariudo", 45);
 
+        Produto arroz = new Produto("Arroz",20, 21f);
+        Produto feijao = new Produto("Feijão",2, 5.40f);
+        Produto farinha = new Produto("Farinha",3, 5.60f);
+
+        gerente.receberProduto(arroz);
+        gerente.receberProduto(feijao);
+        gerente.receberProduto(farinha);
+        gerente.visitar();
+
+
+
 
 
     }

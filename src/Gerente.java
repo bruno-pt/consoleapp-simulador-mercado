@@ -1,4 +1,4 @@
-public class Gerente {
+public class Gerente extends Estoque {
     private String nome;
     private int idade;
 
@@ -12,6 +12,7 @@ public class Gerente {
     private void setNome(String nome) {
         this.nome = nome;
     }
+
 
 }
 

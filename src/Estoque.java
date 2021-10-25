@@ -6,7 +6,7 @@ public class Estoque {
     ArrayList<Produto> estoque;
 
     Estoque(){
-        estoque = new ArrayList<Produto>();
+            estoque = new ArrayList<Produto>();
 
     }
     void receberProduto(Produto produto){
@@ -20,7 +20,7 @@ public class Estoque {
 
         while(var2.hasNext()) {
             Produto produto = (Produto)var2.next();
-            System.out.println("Nome: " + produto.getNome()+ " - " + "Quantidade: " + produto.getQuantidade());
+            System.out.println(produto.getNome()+ " - " + "Quantidade: " + produto.getQuantidade() + " preço: R$" + produto.getPreco());
         }
 
     }

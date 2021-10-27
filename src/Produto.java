@@ -2,53 +2,46 @@ import java.util.ArrayList;
 
 public class Produto {
     private String nome;
-    private int quantidade;
-    private float preco;
+    private int quantidadeEstoque;
+    private int quantidadeCompra = 0;
+    private float precoUni;
 
-    public Produto(String nome, int quantidade, float preco) {
+    public Produto(String nome, int quantidadeEstoque, float precoUni) {
         this.nome = nome;
-        this.quantidade = quantidade;
-        this.preco = preco;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.precoUni = precoUni;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "nome='" + nome + '\'' +
+                ", estoque=" + quantidadeEstoque +
+                ", preco(un)=" + precoUni +
+                '}';
     }
 
     public String getNome() {
         return nome;
     }
 
-    private void setNome(String nome) {
-        this.nome = nome;
+    public void setQuantidadeCompra(int quantidadeCompra) {
+        this.quantidadeCompra = quantidadeCompra;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadeCompra() {
+        return quantidadeCompra;
     }
 
-    private void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
     }
 
-    public float getPreco() {
-        return preco;
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public void setPreco(float preco) {
-        this.preco = preco;
+    public float getPrecoUni() {
+        return precoUni;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-	
-		
-	
-	

@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Estoque {
-    protected static ArrayList<Produto> setorAlimento;
-    protected static ArrayList<Produto> setorLimpeza;
-    protected static ArrayList<Produto> setorAcougue;
-    protected static ArrayList<Produto> setorBebidas;
-    protected static ArrayList<Produto> setorHortifruti;
-    protected static ArrayList<Produto> setorPadaria;
+    protected static ArrayList<Produto> setorAlimento = new ArrayList<Produto>();
+    protected static ArrayList<Produto> setorLimpeza = new ArrayList<Produto>();
+    protected static ArrayList<Produto> setorAcougue = new ArrayList<Produto>();
+    protected static ArrayList<Produto> setorBebidas = new ArrayList<Produto>();
+    protected static ArrayList<Produto> setorHortifruti = new ArrayList<Produto>();
+    protected static ArrayList<Produto> setorPadaria = new ArrayList<Produto>();
 
-    Estoque(){
+    /*Estoque(){
         //estoque = new ArrayList<Produto>();
         setorAlimento = new ArrayList<Produto>();
         setorLimpeza = new ArrayList<Produto>();
@@ -17,7 +17,7 @@ public class Estoque {
         setorBebidas = new ArrayList<Produto>();
         setorHortifruti = new ArrayList<Produto>();
         setorPadaria = new ArrayList<Produto>();
-    }
+    }*/
 
     public void consultaSetorAlimento() {
         for(Produto produto: setorAlimento){System.out.println(produto);}

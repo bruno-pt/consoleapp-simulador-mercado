@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Gerente extends Estoque {
     private String nome;
@@ -11,25 +12,48 @@ public class Gerente extends Estoque {
     }
 
     //valor total por caixa
-    void relatorioVendas(){
+    static void relatorioVendas(){
+        Principal.clear();
+
+        System.out.println("$ Tipo Login > Gerente");
+        System.out.println("===========================");
+        System.out.println("Relatório de Vendas");
+        System.out.println();
         for(Caixa caixa: Principal.caixas){
             System.out.println("Caixa: "+(Principal.caixas.indexOf(caixa)+1)
                     +" | Valor Acumulado: "+caixa.getValorAcumulado()
                     +" | Funcionario: "+caixa.funcionario.getNome());
             //oi lindo te amo
         }
+        System.out.println("===========================");
+        System.out.print("Any - Para continuar > ");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+        Principal.clear();
     }
 
-    //estoque inicial e final de cada produto
-    void relatorioEstoque(){
+    
+    static void relatorioEstoque(){
+        Principal.clear();
+
+        System.out.println("$ Tipo Login > Gerente");
+        System.out.println("===========================");
+        System.out.println("Relatório de Estoque");
+        System.out.println();
         for(Produto produto: relatorio){
             System.out.println("Produto{nome="+produto.getNome()
                     +", estoqueInicial="+produto.getQuantidadeEstoque()
-                    +", estoqueFinal="+(produto.getQuantidadeEstoque()-produto.getQuantidadeCompra()));
+                    +", estoqueFinal="+(produto.getQuantidadeEstoque()-produto.getQuantidadeCompra())
+                    +'}');
         }
+        System.out.println("===========================");
+        System.out.print("Any - Para continuar > ");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+        Principal.clear();
     }
 
-    void cadastrarProduto(Produto produto, String setor){
+    static void cadastrarProduto(Produto produto, String setor){
         setor.toLowerCase();
 
         switch (setor){

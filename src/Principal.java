@@ -5,7 +5,6 @@ Cada caixa está equipado com uma balança, o que permite vendas de produtos tan
  Este sistema possui alguns requisitos:* */
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -63,18 +62,12 @@ public class Principal {
     public static void opGerente(){
         Scanner sc = new Scanner(System.in);
 
-        Gerente gerente = new Gerente("Bikeman", 13);
-
-        if(firstRun){
-            instanceProducts(gerente);
-            firstRun = false;
-        }
-
         System.out.println("$ Tipo Login > Gerente");
-            System.out.println("===========================");
+        System.out.println("===========================");
         System.out.println("1 - Cadastrar produto");
         System.out.println("2 - Gerar Relatório de Vendas");
         System.out.println("3 - Gerar Relatório de Estoque");
+        System.out.println("4 - Gerar Relatório de Venda por Funcionario");
         System.out.println();
         System.out.println("Any - Sair do Sistema");
         System.out.println("===========================");
@@ -84,32 +77,42 @@ public class Principal {
 
         switch (option) {
             case 1:
-                System.out.println("Cadastro de Produto");
+                Principal.clear();
 
-                System.out.println("Digite o nome do produto > ");
+                System.out.println("$ Tipo Login > Gerente");
+                System.out.println("===========================");
+                System.out.println("Cadastro de Produto");
+                System.out.println();
+
+                System.out.print("Digite o nome do produto > ");
                 sc.nextLine();
                 String nome = sc.nextLine();
 
-                System.out.println("Digite a quantidade de Estoque > ");
+                System.out.print("Digite a quantidade de Estoque > ");
                 int qntEstoque = sc.nextInt();
 
-                System.out.println("Digite a o preco(un) > ");
+                System.out.print("Digite a o preco(un) > ");
                 float precoUni = sc.nextFloat();
 
                 System.out.println("Setores disponíveis = {Alimento, Limpeza, Acougue, Bebidas, Hortifruti, Padaria}");
-                System.out.println("Digite o setor > ");
+                System.out.print("Digite o setor > ");
                 sc.nextLine();
                 String setor = sc.nextLine();
 
-                Produto produto = new Produto(nome, qntEstoque, precoUni);
-                gerente.cadastrarProduto(produto, setor);
+                Gerente.cadastrarProduto(new Produto(nome, qntEstoque, precoUni), setor);
+                System.out.println("===========================");
                 System.out.println("Produto cadastrado com sucesso!");
+                System.out.println();
+                System.out.print("Any - Para continuar > ");
+                sc.nextLine();
+
+                Principal.clear();
                 break;
 
-            case 2: gerente.relatorioVendas();
+            case 2: Gerente.relatorioVendas();
                 break;
 
-            case 3: gerente.relatorioEstoque();
+            case 3: Gerente.relatorioEstoque();
                 break;
 
             default: opSistema();
@@ -141,27 +144,28 @@ public class Principal {
         for(int i = 0; i < 3; i++){
             caixas.add(new Caixa(funcionarios.get(i)));
         }
+        instanceProducts();
         opSistema();
     }
 
-    private static void instanceProducts(Gerente gerente){
-        gerente.cadastrarProduto(new Produto("Arroz",5, 7.5f), "alimento");
-        gerente.cadastrarProduto(new Produto("Feijao",29, 6), "alimento");
-        gerente.cadastrarProduto(new Produto("Miojo",999, 0.50f), "alimento");
-        gerente.cadastrarProduto(new Produto("Omo",7, 7), "limpeza");
-        gerente.cadastrarProduto(new Produto("Detergente",8, 15), "limpeza");
-        gerente.cadastrarProduto(new Produto("Veja",7, 15), "limpeza");
-        gerente.cadastrarProduto(new Produto("Hortela",30, 15), "hortifruti");
-        gerente.cadastrarProduto(new Produto("Couve",12, 15), "hortifruti");
-        gerente.cadastrarProduto(new Produto("Alface",11, 15), "hortifruti");
-        gerente.cadastrarProduto(new Produto("Skol",15, 2), "bebidas");
-        gerente.cadastrarProduto(new Produto("Glacial",2350, 0.1f), "bebidas");
-        gerente.cadastrarProduto(new Produto("Velho barreiro",20, 9.90f), "bebidas");
-        gerente.cadastrarProduto(new Produto("Pao",60, 4.99f), "padaria");
-        gerente.cadastrarProduto(new Produto("Pao de queijo",30, 2.50f), "padaria");
-        gerente.cadastrarProduto(new Produto("Rosquinha",55,5.50f ), "padaria");
-        gerente.cadastrarProduto(new Produto("Lula",20, 30.50f), "acougue");
-        gerente.cadastrarProduto(new Produto("Linguiça",36,10.50f), "acougue");
-        gerente.cadastrarProduto(new Produto("Picanha",2, 1500), "acougue");
+    private static void instanceProducts(){
+        Gerente.cadastrarProduto(new Produto("Arroz",5, 7.5f), "alimento");
+        Gerente.cadastrarProduto(new Produto("Feijao",29, 6), "alimento");
+        Gerente.cadastrarProduto(new Produto("Miojo",999, 0.50f), "alimento");
+        Gerente.cadastrarProduto(new Produto("Omo",7, 7), "limpeza");
+        Gerente.cadastrarProduto(new Produto("Detergente",8, 15), "limpeza");
+        Gerente.cadastrarProduto(new Produto("Veja",7, 15), "limpeza");
+        Gerente.cadastrarProduto(new Produto("Hortela",30, 15), "hortifruti");
+        Gerente.cadastrarProduto(new Produto("Couve",12, 15), "hortifruti");
+        Gerente.cadastrarProduto(new Produto("Alface",11, 15), "hortifruti");
+        Gerente.cadastrarProduto(new Produto("Skol",15, 2), "bebidas");
+        Gerente.cadastrarProduto(new Produto("Glacial",2350, 0.1f), "bebidas");
+        Gerente.cadastrarProduto(new Produto("Velho barreiro",20, 9.90f), "bebidas");
+        Gerente.cadastrarProduto(new Produto("Pao",60, 4.99f), "padaria");
+        Gerente.cadastrarProduto(new Produto("Pao de queijo",30, 2.50f), "padaria");
+        Gerente.cadastrarProduto(new Produto("Rosquinha",55,5.50f ), "padaria");
+        Gerente.cadastrarProduto(new Produto("Lula",20, 30.50f), "acougue");
+        Gerente.cadastrarProduto(new Produto("Linguiça",36,10.50f), "acougue");
+        Gerente.cadastrarProduto(new Produto("Picanha",2, 1500), "acougue");
     }
 }

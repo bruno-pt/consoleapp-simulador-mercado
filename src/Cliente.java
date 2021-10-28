@@ -197,6 +197,14 @@ public class Cliente {
             continuar = sc.nextInt();
             sc.nextLine();
             if(continuar == 0){
+                Collections.shuffle(Principal.funcionarios);
+
+                int i = 0;
+                for(Caixa caixa: Principal.caixas){
+                    caixa.setFuncionario(Principal.funcionarios.get(i));
+                    i++;
+                }
+
                 System.out.println("Escolha o caixa para finalizar a venda:");
                 System.out.println("[1, 2, 3]");
                 System.out.print("> ");

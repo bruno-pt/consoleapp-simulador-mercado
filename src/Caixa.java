@@ -16,6 +16,13 @@ public class Caixa {
             this.valorAcumulado += produto.getPrecoUni()* produto.getQuantidadeCompra();
             this.funcionario.vendas.add(produto.getPrecoUni()* produto.getQuantidadeCompra());
 
+            Produto produtoRelatorio = new Produto(
+                    produto.getNome(),
+                    produto.getQuantidadeEstoque(),
+                    produto.getPrecoUni());
+
+            produtoRelatorio.setQuantidadeCompra(produto.getQuantidadeCompra());
+
             boolean achou = false;
             if(Gerente.relatorio != null){
                 for(Produto prd: Gerente.relatorio){
@@ -26,19 +33,22 @@ public class Caixa {
                     }
                 }
                 if(!achou){
-                    Gerente.relatorio.add(produto);
+                    Gerente.relatorio.add(produtoRelatorio);
                 }
             }
             else
-                Gerente.relatorio.add(produto);
+                Gerente.relatorio.add(produtoRelatorio);
 
             produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - produto.getQuantidadeCompra());
             produto.setQuantidadeCompra(0);
 
             itCarrinho.remove();
         }
-        //relatorio vem aqui
         Principal.opSistema();
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public float getValorAcumulado() {

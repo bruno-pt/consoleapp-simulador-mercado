@@ -11,11 +11,15 @@ import java.util.Scanner;
 
 public class Principal {
 
+    public static void clear(){
+        System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+    }
+
     public static void opSistema(){
         int escolha;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+        clear();
 
         System.out.println("======================");
         System.out.println("1 - Login como Gerente");
@@ -26,21 +30,22 @@ public class Principal {
         System.out.print("> ");
         escolha = sc.nextInt();
 
-        System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+        clear();
 
         switch (escolha){
             case 1:
-                String senha;
                 System.out.println("===============");
                 System.out.println("Login - Gerente");
                 System.out.println("===============");
                 System.out.println();
                 System.out.print("Senha > ");
-                senha = sc.nextLine();
-                if(senha.equals("lucianohulk"))
+                sc.nextLine();
+                String senha = sc.nextLine();
+
+                if(senha.equals("lucianohulk")) {
                     opGerente();
+                }
                 else{
-                    //limpa tela
                     System.err.println("Senha Inválida!");
                     opSistema();
                 }
@@ -56,28 +61,75 @@ public class Principal {
     }
 
     public static void opGerente(){
-        System.out.println("1 - Gerar Relatório de Vendas");
+        Scanner sc = new Scanner(System.in);
+
+        Gerente gerente = new Gerente("Bikeman", 13);
+
+        if(firstRun){
+            instanceProducts(gerente);
+            firstRun = false;
+        }
+
+        System.out.println("$ Tipo Login > Gerente");
+            System.out.println("===========================");
+        System.out.println("1 - Cadastrar produto");
+        System.out.println("2 - Gerar Relatório de Vendas");
+        System.out.println("3 - Gerar Relatório de Estoque");
+        System.out.println();
+        System.out.println("Any - Sair do Sistema");
+        System.out.println("===========================");
+        System.out.print("Digite a opcao > ");
+
+            int option = sc.nextInt();
+
+        switch (option) {
+            case 1:
+                System.out.println("Cadastro de Produto");
+
+                System.out.println("Digite o nome do produto > ");
+                sc.nextLine();
+                String nome = sc.nextLine();
+
+                System.out.println("Digite a quantidade de Estoque > ");
+                int qntEstoque = sc.nextInt();
+
+                System.out.println("Digite a o preco(un) > ");
+                float precoUni = sc.nextFloat();
+
+                System.out.println("Setores disponíveis = {Alimento, Limpeza, Acougue, Bebidas, Hortifruti, Padaria}");
+                System.out.println("Digite o setor > ");
+                sc.nextLine();
+                String setor = sc.nextLine();
+
+                Produto produto = new Produto(nome, qntEstoque, precoUni);
+                gerente.cadastrarProduto(produto, setor);
+                System.out.println("Produto cadastrado com sucesso!");
+                break;
+
+            case 2: gerente.relatorioVendas();
+                break;
+
+            case 3: gerente.relatorioEstoque();
+                break;
+
+            default: opSistema();
+        }
+        opGerente();
     }
 
     public static void opCliente(){
         Cliente cliente = new Cliente();
         cliente.corredores();
-        if(Cliente.retornar == true) {
-            Cliente.retornar = false;
-            opSistema();
-            return;
-        }
     }
 
     static ArrayList<Caixa> caixas = new ArrayList<Caixa>();
     static ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
-
     public ArrayList<Caixa> getCaixas() {
         return caixas;
     }
+    private static boolean firstRun = true;
 
     public static void main(String[] args) {
-
         funcionarios.add(new Funcionario("Gabriel", 20));
         funcionarios.add(new Funcionario("Maria", 21));
         funcionarios.add(new Funcionario("Romualdo", 43));
@@ -89,8 +141,10 @@ public class Principal {
         for(int i = 0; i < 3; i++){
             caixas.add(new Caixa(funcionarios.get(i)));
         }
+        opSistema();
+    }
 
-        Gerente gerente = new Gerente("Amariudo", 45);
+    private static void instanceProducts(Gerente gerente){
         gerente.cadastrarProduto(new Produto("Arroz",5, 7.5f), "alimento");
         gerente.cadastrarProduto(new Produto("Feijao",29, 6), "alimento");
         gerente.cadastrarProduto(new Produto("Miojo",999, 0.50f), "alimento");
@@ -109,7 +163,5 @@ public class Principal {
         gerente.cadastrarProduto(new Produto("Lula",20, 30.50f), "acougue");
         gerente.cadastrarProduto(new Produto("Linguiça",36,10.50f), "acougue");
         gerente.cadastrarProduto(new Produto("Picanha",2, 1500), "acougue");
-
-        opSistema();
     }
 }

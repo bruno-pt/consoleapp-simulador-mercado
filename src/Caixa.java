@@ -12,12 +12,36 @@ public class Caixa {
         Iterator<Produto> itCarrinho = Cliente.carrinho.iterator();
         while(itCarrinho.hasNext()) {
             Produto produto = itCarrinho.next();
-            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - produto.getQuantidadeCompra());
+
             this.valorAcumulado += produto.getPrecoUni()* produto.getQuantidadeCompra();
             this.funcionario.vendas.add(produto.getPrecoUni()* produto.getQuantidadeCompra());
+
+            boolean achou = false;
+            if(Gerente.relatorio != null){
+                for(Produto prd: Gerente.relatorio){
+                    if(prd.getNome().equals(produto.getNome())){
+                        prd.setQuantidadeCompra(prd.getQuantidadeCompra() + produto.getQuantidadeCompra());
+                        achou = true;
+                        break;
+                    }
+                }
+                if(!achou){
+                    Gerente.relatorio.add(produto);
+                }
+            }
+            else
+                Gerente.relatorio.add(produto);
+
+            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - produto.getQuantidadeCompra());
+            produto.setQuantidadeCompra(0);
+
             itCarrinho.remove();
         }
-
+        //relatorio vem aqui
         Principal.opSistema();
+    }
+
+    public float getValorAcumulado() {
+        return valorAcumulado;
     }
 }

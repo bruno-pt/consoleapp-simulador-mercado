@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Estoque {
-    private int i;
-    protected int teste = 4;
-    //ArrayList<Produto> estoque;
     protected static ArrayList<Produto> setorAlimento;
     protected static ArrayList<Produto> setorLimpeza;
     protected static ArrayList<Produto> setorAcougue;

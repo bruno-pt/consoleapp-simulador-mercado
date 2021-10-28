@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-//acredito que não precisa extender de estoque
-//instanciar a classe estoque, pois as variaveis de setor são estaticas
 public class Gerente extends Estoque {
     private String nome;
     private int idade;
@@ -12,7 +10,24 @@ public class Gerente extends Estoque {
         this.setNome(nome);
     }
 
-    //gerarRelatorio();
+    //valor total por caixa
+    void relatorioVendas(){
+        for(Caixa caixa: Principal.caixas){
+            System.out.println("Caixa: "+(Principal.caixas.indexOf(caixa)+1)
+                    +" | Valor Acumulado: "+caixa.getValorAcumulado()
+                    +" | Funcionario: "+caixa.funcionario.getNome());
+            //oi lindo te amo
+        }
+    }
+
+    //estoque inicial e final de cada produto
+    void relatorioEstoque(){
+        for(Produto produto: relatorio){
+            System.out.println("Produto{nome="+produto.getNome()
+                    +", estoqueInicial="+produto.getQuantidadeEstoque()
+                    +", estoqueFinal="+(produto.getQuantidadeEstoque()-produto.getQuantidadeCompra()));
+        }
+    }
 
     void cadastrarProduto(Produto produto, String setor){
         setor.toLowerCase();
@@ -41,6 +56,10 @@ public class Gerente extends Estoque {
             case "padaria":
                 setorPadaria.add(produto);
                 break;
+
+            default:
+                System.out.println("Setor inexistente!");
+                Principal.opGerente();
         }
     }
 

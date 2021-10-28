@@ -3,25 +3,8 @@ import java.util.*;
 public class Cliente {
     static int corredorAtual;
     static String setorAtual;
-    static boolean retornar;
     static int caixaEscolhido;
     static ArrayList<Produto> carrinho = new ArrayList<Produto>();
-
-    /*public void consultarCorredor(int corredorAtual){
-        switch (corredorAtual){
-            case 1: System.out.println("Setor - Alimento");
-                break;
-            case 2: System.out.println("Setor - Limpeza");
-                break;
-            case 3: System.out.println("Setor - Acougue");
-                    System.out.println("Setor - Bebidas");
-                break;
-            case 4: System.out.println("Setor - Hortifruti");
-                    System.out.println("Setor - Padaria");
-                break;
-        }
-    }*/
-    //Estoque es = new Estoque();
 
     public void corredores(){
         Scanner sc = new Scanner(System.in);
@@ -45,7 +28,7 @@ public class Cliente {
             setores();
         }
         else
-            this.retornar = true;
+            Principal.opSistema();
     }
 
     public void setores(){
@@ -108,7 +91,7 @@ public class Cliente {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+        Principal.clear();
         System.out.println("$ Tipo Login > Cliente");
         System.out.println("======================================");
         System.out.println("Consulta de produtos");

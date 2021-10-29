@@ -8,27 +8,41 @@ public class Cliente {
 
     public void corredores(){
         Scanner sc = new Scanner(System.in);
+        int option=0;
+        try {
+            System.out.println("$ Tipo Login > Cliente");
+            System.out.println("===========================");
+            System.out.println("Corredor - Setor");
+            System.out.println("===========================");
+            System.out.println("1 - Alimentos");
+            System.out.println("2 - Limpeza");
+            System.out.println("3 - Acougue, Bebidas");
+            System.out.println("4 - Hortifruti, Padaria");
+            System.out.println();
+            System.out.println("Any Number - Para voltar");
+            System.out.println("===========================");
+            System.out.print("Digite o numero do corredor > ");
+            option = sc.nextInt();
 
-        System.out.println("$ Tipo Login > Cliente");
-        System.out.println("===========================");
-        System.out.println("Corredor - Setor");
-        System.out.println("===========================");
-        System.out.println("1 - Alimentos");
-        System.out.println("2 - Limpeza");
-        System.out.println("3 - Acougue, Bebidas");
-        System.out.println("4 - Hortifruti, Padaria");
-        System.out.println();
-        System.out.println("Any - Para voltar");
-        System.out.println("===========================");
-        System.out.print("Digite o numero do corredor > ");
-        int option = sc.nextInt();
+        }catch (InputMismatchException ex){
+            Principal.clear();
+            System.out.println("Erro! Opção Inválida!\nException{"+ex.toString()+'}');
+            System.out.print("\nPressione qualquer tecla para continuar > ");
+            sc.nextLine();
+            sc.nextLine();
+            Principal.clear();
+            corredores();
+        }
+
 
         if(option >=1 && option <=4) {
             this.corredorAtual = option;
             setores();
         }
-        else
+        else{
+            Principal.clear();
             Principal.opSistema();
+        }
     }
 
     public void setores(){
@@ -83,8 +97,10 @@ public class Cliente {
             this.setorAtual = option;
             consultarProdutos();
         }
-        else
+        else{
+            Principal.clear();
             corredores();
+        }
     }
 
     public void consultarProdutos(){
@@ -123,14 +139,26 @@ public class Cliente {
                 for(Produto produto: Estoque.setorPadaria){System.out.println(produto);}
                 break;
         }
-        System.out.println("=======================================");
-        System.out.println("1 - Realizar compra de produtos");
-        System.out.println();
-        System.out.println("Any - Voltar");
-        System.out.println("=======================================");
-        System.out.print("Digite a escolha > ");
+        int option = 0;
+        try{
+            System.out.println("=======================================");
+            System.out.println("1 - Realizar compra de produtos");
+            System.out.println();
+            System.out.println("Any Number - Voltar");
+            System.out.println("=======================================");
+            System.out.print("Digite a escolha > ");
 
-        int option = sc.nextInt();
+            option = sc.nextInt();
+        }catch (InputMismatchException ex){
+            Principal.clear();
+            System.out.println("Erro! Opção Inválida!\nException{"+ex.toString()+'}');
+            System.out.print("\nPressione qualquer tecla para continuar > ");
+            sc.nextLine();
+            sc.nextLine();
+            Principal.clear();
+            consultarProdutos();
+        }
+
 
         if (option == 1){
             comprar();
@@ -140,91 +168,111 @@ public class Cliente {
     }
 
     public void comprar(){
-        Scanner sc = new Scanner(System.in);
-        int continuar = 1;
+        try {
+            Scanner sc = new Scanner(System.in);
+            int continuar = 1;
 
-        System.out.println("======================================");
-        System.out.println("Compra de produtos");
+            System.out.println("======================================");
+            System.out.println("Compra de produtos");
+            System.out.println();
 
-        while(continuar == 1) {
-            String produtoNome;
-            int qntCompra;
-            boolean achou = false;
+            while (continuar == 1) {
+                String produtoNome;
+                int qntCompra;
+                boolean achou = false;
 
-            System.out.print("Digite o nome do produto > ");
-            produtoNome = sc.nextLine().toLowerCase();
-            System.out.print("Digite a quantidade (un) > ");
-            qntCompra = sc.nextInt();
+                System.out.print("Digite o nome do produto > ");
+                produtoNome = sc.nextLine().toLowerCase();
+                System.out.print("Digite a quantidade (un) > ");
+                qntCompra = sc.nextInt();
 
-            switch (this.setorAtual) {
-                case "alimentos":
-                        for (Produto produto: Estoque.setorAlimento) {
+                switch (this.setorAtual) {
+                    case "alimentos":
+                        for (Produto produto : Estoque.setorAlimento) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
 
-                case "limpeza":
+                    case "limpeza":
                         for (Produto produto : Estoque.setorLimpeza) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
 
-                case "acougue":
+                    case "acougue":
                         for (Produto produto : Estoque.setorAcougue) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
 
-                case "bebidas":
+                    case "bebidas":
                         for (Produto produto : Estoque.setorBebidas) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
 
-                case "hortifruti":
+                    case "hortifruti":
                         for (Produto produto : Estoque.setorHortifruti) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
 
-                case "padaria":
+                    case "padaria":
                         for (Produto produto : Estoque.setorPadaria) {
                             achou = checkProduto(produto, produtoNome, qntCompra, achou);
                         }
-            }
-            if(!achou)
-                System.err.println("Produto {" + produtoNome + "} não cadastrado no estoque!");
-            else{
-                System.out.println("Produto inserido no carrinho com sucesso!");
-            }
-            //alterar aqui
-            System.out.print("Continuar comprando? (1/0) > ");
-            continuar = sc.nextInt();
-            sc.nextLine();
-            if(continuar == 0){
-                Collections.shuffle(Principal.funcionarios);
-
-                int i = 0;
-                for(Caixa caixa: Principal.caixas){
-                    caixa.setFuncionario(Principal.funcionarios.get(i));
-                    i++;
                 }
+                System.out.println();
+                if (!achou) {
+                    Principal.clear();
+                    System.out.println("Produto {" + produtoNome + "} não cadastrado ou sem estoque!");
+                }
+                else {
+                    System.out.println("Produto inserido no carrinho com sucesso!");
+                }
+                System.out.println("======================================");
+                //alterar aqui
+                System.out.println("1 - Finalizar carrinho");
+                System.out.println("2 - Continuar comprando nesse setor");
+                System.out.println("Any Number - Continuar comprando e sair do setor");
+                System.out.println("======================================");
+                System.out.print("Digite a opção > ");
+                int op = sc.nextInt();
+                sc.nextLine();
 
-                System.out.println("Escolha o caixa para finalizar a venda:");
-                System.out.println("[1, 2, 3]");
-                System.out.print("> ");
-                caixaEscolhido = sc.nextInt();
+                switch (op) {
+                    case 1:
+                        finalizarCarrinho(sc);
+                        continuar = 0;
+                        break;
+
+                    case 2:
+                        consultarProdutos();
+                        break;
+
+                    default:
+                        setores();
+                        break;
+                }
             }
-
-        }
-        int i = 0;
-        for (Caixa caixa : Principal.caixas) {
-            if(i+1 == caixaEscolhido){
-                caixa.finalizarVenda();
-            }else
-                i++;
+            int i = 0;
+            for (Caixa caixa : Principal.caixas) {
+                if (i + 1 == caixaEscolhido) {
+                    caixa.finalizarCompra();
+                } else
+                    i++;
+            }
+        }catch (InputMismatchException ex){
+            Scanner sc = new Scanner(System.in);
+            Principal.clear();
+            System.out.println("Erro! Opção Inválida!\nException{"+ex.toString()+'}');
+            System.out.print("\nPressione qualquer tecla para continuar > ");
+            sc.nextLine();
+            Principal.clear();
+            consultarProdutos();
         }
     }
 
     private boolean checkProduto(Produto produto, String produtoNome, int qntCompra, boolean achou){
         if (produtoNome.equals(produto.getNome().toLowerCase())) {
             if(qntCompra > produto.getQuantidadeEstoque()){
-                System.err.println("Produto {" + produtoNome + "} sem estoque suficiente!");
+                return achou;
+                //System.err.println("Produto {" + produtoNome + "} sem estoque suficiente!");
             }
             else {
                 carrinho.add(produto);
@@ -235,5 +283,37 @@ public class Cliente {
         return achou;
     }
 
-}
+    private void finalizarCarrinho(Scanner sc){
+        try{
+            Collections.shuffle(Principal.funcionarios);
 
+            int i = 0;
+            for (Caixa caixa : Principal.caixas) {
+                caixa.setFuncionario(Principal.funcionarios.get(i));
+                i++;
+            }
+
+            System.out.println("Escolha o caixa para finalizar a venda:");
+            System.out.println("1 - Funcionario: "+Principal.caixas.get(0).getFuncionario().getNome());
+            System.out.println("2 - Funcionario: "+Principal.caixas.get(0).getFuncionario().getNome());
+            System.out.println("3 - Funcionario: "+Principal.caixas.get(0).getFuncionario().getNome());
+            System.out.println();
+            System.out.print("> ");
+            caixaEscolhido = sc.nextInt();
+            sc.nextLine();
+
+            if(caixaEscolhido < 1 || caixaEscolhido > 3)
+                throw new InputMismatchException();
+
+        }catch (InputMismatchException ex){
+            Principal.clear();
+            System.out.println("Erro! Opção Inválida!\nException{"+ex.toString()+'}');
+            System.out.print("\nPressione qualquer tecla para continuar > ");
+            sc.nextLine();
+            Principal.clear();
+            finalizarCarrinho(sc);
+        }
+
+    }
+
+}

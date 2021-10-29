@@ -21,8 +21,8 @@ public class Gerente extends Estoque {
         System.out.println();
         for(Caixa caixa: Principal.caixas){
             System.out.println("Caixa: "+(Principal.caixas.indexOf(caixa)+1)
-                    +" | Valor Acumulado: "+caixa.getValorAcumulado()
-                    +" | Funcionario: "+caixa.funcionario.getNome());
+                    +" | Valor no Caixa: "+caixa.getValorAcumulado()
+                    +" | Funcionario atual: "+caixa.funcionario.getNome());
             //oi lindo te amo
         }
         System.out.println("===========================");
@@ -38,13 +38,30 @@ public class Gerente extends Estoque {
 
         System.out.println("$ Tipo Login > Gerente");
         System.out.println("===========================");
-        System.out.println("Relatório de Estoque");
+        System.out.println("Relatório de Alteração de Estoque");
         System.out.println();
         for(Produto produto: relatorio){
             System.out.println("Produto{nome="+produto.getNome()
                     +", estoqueInicial="+produto.getQuantidadeEstoque()
                     +", estoqueFinal="+(produto.getQuantidadeEstoque()-produto.getQuantidadeCompra())
                     +'}');
+        }
+        System.out.println("===========================");
+        System.out.print("Any - Para continuar > ");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+        Principal.clear();
+    }
+
+    static void relatorioVendasFuncionario(){
+        Principal.clear();
+
+        System.out.println("$ Tipo Login > Gerente");
+        System.out.println("===========================");
+        System.out.println("Relatório de Venda por Funcionario");
+        System.out.println();
+        for(Funcionario funcionario: Principal.funcionarios){
+            System.out.println(funcionario);
         }
         System.out.println("===========================");
         System.out.print("Any - Para continuar > ");

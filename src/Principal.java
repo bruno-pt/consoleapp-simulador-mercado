@@ -6,6 +6,7 @@ Cada caixa está equipado com uma balança, o que permite vendas de produtos tan
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Principal {
@@ -15,19 +16,29 @@ public class Principal {
     }
 
     public static void opSistema(){
-        int escolha;
+        int escolha=0;
         Scanner sc = new Scanner(System.in);
 
-        clear();
+        try{
+            System.out.println("$ Tipo Login");
+            System.out.println("======================");
+            System.out.println("1 - Login como Gerente");
+            System.out.println("2 - Login como Cliente");
+            System.out.println();
+            System.out.println("Any Number - Sair do Sistema");
+            System.out.println("======================");
+            System.out.print("> ");
+            escolha = sc.nextInt();
+        }catch (InputMismatchException ex){
+            clear();
+            System.out.println("Erro! Opção Inválida!\nException{"+ex.toString()+'}');
+            System.out.print("\nPressione qualquer tecla para continuar > ");
+            sc.nextLine();
+            sc.nextLine();
+            clear();
+            opSistema();
+        }
 
-        System.out.println("======================");
-        System.out.println("1 - Login como Gerente");
-        System.out.println("2 - Login como Cliente");
-        System.out.println();
-        System.out.println("Any - Sair do Sistema");
-        System.out.println("======================");
-        System.out.print("> ");
-        escolha = sc.nextInt();
 
         clear();
 
@@ -41,7 +52,9 @@ public class Principal {
                 sc.nextLine();
                 String senha = sc.nextLine();
 
-                if(senha.equals("lucianohulk")) {
+                clear();
+
+                if(senha.equals("")) {
                     opGerente();
                 }
                 else{
@@ -66,7 +79,7 @@ public class Principal {
         System.out.println("===========================");
         System.out.println("1 - Cadastrar produto");
         System.out.println("2 - Gerar Relatório de Vendas");
-        System.out.println("3 - Gerar Relatório de Estoque");
+        System.out.println("3 - Gerar Relatório de Alteração de Estoque");
         System.out.println("4 - Gerar Relatório de Venda por Funcionario");
         System.out.println();
         System.out.println("Any - Sair do Sistema");
@@ -113,6 +126,9 @@ public class Principal {
                 break;
 
             case 3: Gerente.relatorioEstoque();
+                break;
+
+            case 4: Gerente.relatorioVendasFuncionario();
                 break;
 
             default: opSistema();
